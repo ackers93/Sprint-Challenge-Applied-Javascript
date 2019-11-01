@@ -20,29 +20,25 @@
 
 axios.get(`https://lambda-times-backend.herokuapp.com/articles`)
     .then(response => {
-        let articleTopicBootstrap = response.data.articles.bootstrap
-        let articleTopicJavascript = response.data.articles.javascript
-        let articleTopicTechnology = response.data.articles.technology
-        let articleTopicJquery = response.data.articles.jquery
-        let articleTopicNode = response.data.articles.node
 
-        articleTopicBootstrap.forEach(topicElement => {
+
+        response.data.articles.bootstrap.forEach(topicElement => {
             document.querySelector('.cards-container').appendChild(createCard(topicElement))
         })
 
-        articleTopicJavascript.forEach(topicElement => {
+        response.data.articles.javascript.forEach(topicElement => {
             document.querySelector('.cards-container').appendChild(createCard(topicElement))
         })
 
-        articleTopicTechnology.forEach(topicElement => {
+        response.data.articles.technology.forEach(topicElement => {
             document.querySelector('.cards-container').appendChild(createCard(topicElement))
         })
 
-        articleTopicJquery.forEach(topicElement => {
+        response.data.articles.jquery.forEach(topicElement => {
             document.querySelector('.cards-container').appendChild(createCard(topicElement))
         })
 
-        articleTopicNode.forEach(topicElement => {
+        response.data.articles.node.forEach(topicElement => {
             document.querySelector('.cards-container').appendChild(createCard(topicElement))
         })
 
@@ -53,30 +49,32 @@ axios.get(`https://lambda-times-backend.herokuapp.com/articles`)
 
 
 function createCard(arg) {
-    const articleCard = document.createElement("div"),
-        articleHeadline = document.createElement("div"),
-        articleAuthor = document.createElement("div"),
-        articleImgContainer = document.createElement("div"),
-        articleImg = document.createElement("img"),
-        articleCredit = document.createElement("span");
+    const container = document.createElement("div")
+    container.classList.add("card")
 
-    articleCard.appendChild(articleHeadline);
-    articleCard.appendChild(articleAuthor);
-    articleAuthor.appendChild(articleImgContainer);
-    articleImgContainer.appendChild(articleImg);
-    articleAuthor.appendChild(articleCredit);
 
-    articleHeadline.textContent = arg.headline;
-    articleAuthor.textContent = arg.authorName;
-    articleImg.src = arg.authorPhoto;
-    articleCredit.textContent = `By ${arg.authorName}`;
+    const headline = document.createElement("div")
+    headline.classList.add("headline")
+    headline.textContent = arg.headline;
+    container.appendChild(headline);
 
-    articleCard.classList.add("card");
-    articleHeadline.classList.add("headline");
-    articleAuthor.classList.add("author");
-    articleImgContainer.classList.add("img-container")
+    const author = document.createElement("div")
+    author.classList.add("author")
+    container.appendChild(author);
 
-    return articleCard;
+    const imgContainer = document.createElement("div")
+    imgContainer.classList.add("img-container")
+    author.appendChild(imgContainer);
+
+    const img = document.createElement("img")
+    img.src = arg.authorPhoto
+    imgContainer.appendChild(img)
+
+    const name = document.createElement("span")
+    name.textContent = `By ${arg.authorName}`
+    author.appendChild(name)
+
+    return container;
 }
 
 
