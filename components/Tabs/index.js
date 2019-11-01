@@ -13,7 +13,7 @@ axios.get(`https://lambda-times-backend.herokuapp.com/topics`)
     .then(response => {
         // console.log(response)
         let topicsVar = response.data.topics;
-        console.log(topicsVar);
+        // console.log(topicsVar);
         topicsVar.forEach(element => {
             document.querySelector('.topics').appendChild(tabsBar(element))
         });
